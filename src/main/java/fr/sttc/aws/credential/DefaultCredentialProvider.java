@@ -1,4 +1,4 @@
-package fr.sttc.aws;
+package fr.sttc.aws.credential;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.AWSCredentials;

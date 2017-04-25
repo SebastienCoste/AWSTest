@@ -1,4 +1,4 @@
-package fr.sttc.aws;
+package fr.sttc.aws.manager;
 
 import com.amazonaws.regions.Regions;
 

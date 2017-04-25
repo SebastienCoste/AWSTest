@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.Bucket;
 
-import fr.sttc.aws.S3Manager;
+import fr.sttc.aws.manager.S3Manager;
 
 public class S3Cleaner {
 
