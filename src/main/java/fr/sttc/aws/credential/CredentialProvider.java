@@ -6,9 +6,10 @@ import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
 
-public enum DefaultCredentialProvider implements AWSCredentialsProvider{
+public enum CredentialProvider implements AWSCredentialsProvider{
 
-	INSTANCE;
+	DEFAULT,
+	EC2;
 	
 	private AWSCredentials credentials = null;
 	
@@ -22,7 +23,7 @@ public enum DefaultCredentialProvider implements AWSCredentialsProvider{
 
 	public void refresh() {
 	        try {
-	            credentials = new ProfileCredentialsProvider("default").getCredentials();
+	            credentials = new ProfileCredentialsProvider(getCredentialName()).getCredentials();
 	        } catch (Exception e) {
 	            throw new AmazonClientException(
 	                    "Cannot load the credentials from the credential profiles file. " +
@@ -32,7 +33,22 @@ public enum DefaultCredentialProvider implements AWSCredentialsProvider{
 	        }
 	}
 	
+	private String getCredentialName(){
+		
+		switch(this){
+		case DEFAULT: return "default";
+		case EC2: return "ec2profile";
+		}
+		
+		return "";
+	}
+	
 	public Regions getRegion(){
+		
+		switch(this){
+		case DEFAULT: return Regions.US_WEST_2;
+		case EC2: return Regions.CA_CENTRAL_1;
+		}
 		
 		return Regions.US_WEST_2;
 	}

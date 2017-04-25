@@ -9,7 +9,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.Bucket;
 
-import fr.sttc.aws.credential.DefaultCredentialProvider;
+import fr.sttc.aws.credential.CredentialProvider;
 
 public class S3Manager {
 
@@ -25,8 +25,8 @@ public class S3Manager {
 	public static AmazonS3 getDefaultS3instance(){
 
 		AmazonS3ClientBuilder builder = AmazonS3Client.builder();
-		builder.withCredentials(DefaultCredentialProvider.INSTANCE)
-		.withRegion(DefaultCredentialProvider.INSTANCE.getRegion());
+		builder.withCredentials(CredentialProvider.DEFAULT)
+		.withRegion(CredentialProvider.DEFAULT.getRegion());
 
 		return builder.build();
 	}
@@ -39,7 +39,7 @@ public class S3Manager {
 	public static AmazonS3 getS3instance(Regions region){
 
 		AmazonS3ClientBuilder builder = AmazonS3Client.builder();
-		builder.withCredentials(DefaultCredentialProvider.INSTANCE)
+		builder.withCredentials(CredentialProvider.DEFAULT)
 		.withRegion(region);
 
 		return builder.build();
