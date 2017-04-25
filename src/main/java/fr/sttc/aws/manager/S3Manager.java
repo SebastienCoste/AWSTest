@@ -1,21 +1,21 @@
 package fr.sttc.aws.manager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.Bucket;
 
 import fr.sttc.aws.credential.DefaultCredentialProvider;
 
 public class S3Manager {
 
+	private S3Manager(){
+		
+	}
 
 	/**
 	 *  Create a default instance based on the DefaultCredentialProvider
@@ -61,7 +61,6 @@ public class S3Manager {
 		return getS3instance(region);
 	}
 	
-	
 	/**
 	 * Garner the region list of S3 with data on
 	 * @return the list of Regions. Empty if nothing found or in case of connection error
@@ -69,7 +68,7 @@ public class S3Manager {
 	public static List<Regions> getRegionOfS3ActiveInstances(){
 		List<Regions> result = new ArrayList<>();
 		
-		AmazonS3 s3 = S3Manager.getDefaultS3instance();
+		AmazonS3 s3 = getDefaultS3instance();
 		if (s3 == null){
 			//TODO Error management
 			return result;
