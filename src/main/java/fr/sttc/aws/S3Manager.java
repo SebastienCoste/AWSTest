@@ -23,6 +23,45 @@ public class S3Manager {
 
 		return builder.build();
 	}
+	
+	public static AmazonS3 getS3instance(Regions region){
+
+		AmazonS3ClientBuilder builder = AmazonS3Client.builder();
+		builder.withCredentials(DefaultCredentialProvider.INSTANCE)
+		.withRegion(region);
+
+		return builder.build();
+	}
+	
+	public static AmazonS3 getS3instance(String region){
+
+		AmazonS3ClientBuilder builder = AmazonS3Client.builder();
+		Regions reg = getRegion(region);
+		if (reg == null){
+			return null;
+		}
+		builder.withCredentials(DefaultCredentialProvider.INSTANCE)
+		.withRegion(reg);
+
+		return builder.build();
+	}
+	
+	
+	
+	
+
+	private static Regions getRegion(String region) {
+		
+		if (region == null){
+			return null;
+		}
+		for (Regions r : Regions.values()){
+			if (region.toUpperCase().equals(r.getName().toUpperCase())){
+				return r;
+			}
+		}
+		return null;
+	}
 
 	public static List<AmazonS3> getActiveS3instance(){
 		return Arrays.asList(Regions.values()).stream()
